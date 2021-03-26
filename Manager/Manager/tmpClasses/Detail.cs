@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Manager
+namespace Manager.tmpClasses
 {
-    public class Class1
+    class Detail
     {
+        char[][][] state;
+        Detail(int x, int y, int z, char s) { }
     }
 }
