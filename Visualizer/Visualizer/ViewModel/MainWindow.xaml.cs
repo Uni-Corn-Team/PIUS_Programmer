@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -23,6 +24,102 @@ namespace Visualizer
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public void StartButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void StopButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void SettingsButtonClicked(object sender, RoutedEventArgs e)
+        {
+            int[][][] detailPoints;
+            Random random = new Random();
+            detailPoints = new int[20][][];
+            for (int i = 0; i < detailPoints.Length; i++)
+            {
+                detailPoints[i] = new int[4][];
+                for (int j = 0; j < detailPoints[i].Length; j++)
+                {
+                    detailPoints[i][j] = new int[2];
+                    for (int k = 0; k < detailPoints[i][j].Length; k++)
+                    {
+                        detailPoints[i][j][k] = random.Next(1,2);
+                    }
+                }
+            }
+            DrawDetail(detailPoints);
+        }
+
+        public void StepButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void FinishButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void DrawDetail(int[][][] detailPoints)
+        {
+            for(int i = 0; i < detailPoints.Length; i++)
+            {
+                for(int j = 0; j < detailPoints[i].Length; j++)
+                {
+                    for (int k = 0; k < detailPoints[i][j].Length; k++)
+                    {
+                        if (detailPoints[i][j][k] != 0)
+                        {
+                            DrawPoint(i, j, k);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void DrawPoint(int pointX, int pointY, int pointZ)
+        {
+            Isometry.Children.Add(GetModelVisual3D(pointX, pointY, pointZ));
+            Top.Children.Add(GetModelVisual3D(pointX, pointY, pointZ));
+            Left.Children.Add(GetModelVisual3D(pointX, pointY, pointZ));
+            Front.Children.Add(GetModelVisual3D(pointX, pointY, pointZ));
+        }
+
+        private ModelVisual3D GetModelVisual3D(int pointX, int pointY, int pointZ)
+        {
+            ModelVisual3D mv = new ModelVisual3D()
+            {
+                Content = new GeometryModel3D()
+                {
+                    Geometry = new MeshGeometry3D()
+                    {
+                        Positions = new Point3DCollection(new List<Point3D>()
+                        {   new Point3D(pointX, pointY, pointZ), new Point3D(pointX+1, pointY, pointZ),
+                            new Point3D(pointX, pointY+1, pointZ), new Point3D(pointX+1, pointY+1, pointZ),
+                            new Point3D(pointX, pointY, pointZ+1), new Point3D(pointX+1, pointY, pointZ+1),
+                            new Point3D(pointX, pointY+1, pointZ+1), new Point3D(pointX+1, pointY+1, pointZ+1)
+                        }),
+                        TriangleIndices = new Int32Collection(new List<int>()
+                        {
+                            0, 2, 1, 1, 2, 3, 0, 4, 2, 2, 4, 6, 0, 1, 4, 1, 5, 4, 1, 7, 5, 1, 3, 7, 4, 5, 6, 7, 6, 5, 2, 6, 3, 3, 6, 7
+                        })
+                    },
+                    Material = new DiffuseMaterial()
+                    {
+                        Brush = new SolidColorBrush()
+                        {
+                            Color = Color.FromRgb(1, 106, 254)
+                        }
+                    }
+                }
+            };
+            return mv;
         }
     }
 }
