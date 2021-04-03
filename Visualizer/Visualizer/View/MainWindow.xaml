@@ -78,7 +78,7 @@
                 </TransformGroup>
             </Viewport3D.RenderTransform>
             <Viewport3D.Camera>
-                <OrthographicCamera Position="" LookDirection=""></OrthographicCamera>
+                <PerspectiveCamera Position="2,10,40" LookDirection="3,-10,-40"></PerspectiveCamera>
             </Viewport3D.Camera>
             <ModelVisual3D>
                 <ModelVisual3D.Content>
