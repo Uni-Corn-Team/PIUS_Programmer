@@ -11,5 +11,6 @@ namespace Manager
     {
         public static Settings Settings { get; set; }
         public static Carver Carver { get; set; }
+        public static Action<int[][][]> VisualizeFunc { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Manager.tmpClasses
 {
     class Detail
     {
-        char[][][] state;
+        public int[][][] state;
         Detail(int x, int y, int z, char s) { }
     }
 }

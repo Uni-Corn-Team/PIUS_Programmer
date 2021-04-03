@@ -3,15 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Manager
 {
     class GuiHandler
-    {
-        public void Init()
+    {        
+
+        public void Init(Action<int[][][]> visualizeFunc)
         {
             State.Carver = new Carver();
+            State.VisualizeFunc = visualizeFunc;
+
+            TimerCallback timerCB = new TimerCallback(Visualizer);
+            Timer t = new Timer(timerCB, null, 0, 1000);
+        }
+
+        private void Visualizer(object state)
+        {
+            State.VisualizeFunc.Invoke(State.Carver.GetDetail().state);
         }
 
         public void Start() 
