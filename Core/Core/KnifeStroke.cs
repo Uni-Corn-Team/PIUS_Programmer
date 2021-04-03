@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    class KnifeStroke
+    public class KnifeStroke
     {
         public int x, y, z;
         public KnifeStroke(int xSize, int ySize, int zSize)

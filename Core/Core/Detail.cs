@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    class Detail
+    public class Detail
     {
-        public char[][][] state;
-        Detail(int x, int y, int z, char s)
+        public int[][][] state;
+        public Detail(int x, int y, int z)
         {
-            state = new char[x][][];
+            state = new int[x][][];
             for (int i = 0; i < x; i++)
             {
-                state[i] = new char[y][];
+                state[i] = new int[y][];
                 for (int j = 0; j < y; j++)
                 {
-                    state[i][j] = new char[z];
+                    state[i][j] = new int[z];
                     for (int k = 0; k < z; k++)
                     {
-                        state[i][j][k] = s;
+                        state[i][j][k] = 1;
                     }
                 }
             }

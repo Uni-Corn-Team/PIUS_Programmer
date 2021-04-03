@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    class Cube
+    public class Cube
     {
         public int xSize, ySize, zSize;
-        Cube(int xSize, int ySize, int zSize)
+        public Cube(int xSize, int ySize, int zSize)
         {
             this.xSize = xSize;
             this.ySize = ySize;
