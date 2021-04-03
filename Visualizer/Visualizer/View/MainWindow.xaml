@@ -7,39 +7,43 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1320">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <Frame Content="Слева" Background="AntiqueWhite" HorizontalAlignment="Right" Height="265" Margin="0,0,22,294" VerticalAlignment="Bottom" Width="520"/>
-        <Frame Content="Изометрия" Background="AntiqueWhite" HorizontalAlignment="Right" Height="265" Margin="0,0,22,10" VerticalAlignment="Bottom" Width="520"/>
-        <Frame Content="Сверху" Background="AntiqueWhite" HorizontalAlignment="Right" Height="265" Margin="0,0,564.6,10.4" VerticalAlignment="Bottom" Width="520"/>
-        <Frame Content="Спереди" Background="AntiqueWhite" HorizontalAlignment="Right" Height="265" Margin="0,0,564.6,294.4" VerticalAlignment="Bottom" Width="520"/>
-        <Frame Content="" Background="Lavender" HorizontalAlignment="Left" Height="265" Margin="10,10,0,0" VerticalAlignment="Top" Width="194"/>
-        <Frame Content="" Background="Lavender" HorizontalAlignment="Left" Height="265" Margin="10,294,0,0" VerticalAlignment="Top" Width="194"/>
-        <RadioButton Content="Автоматический режим" HorizontalAlignment="Left" Margin="25,309,0,0" VerticalAlignment="Top" Width="162"/>
-        <RadioButton Content="Ручной режим" HorizontalAlignment="Left" Margin="25,329,0,0" VerticalAlignment="Top" Width="162"/>
-        <Button Content="Настройка" Click="SettingsButtonClicked" HorizontalAlignment="Left" Margin="25,468,0,0" VerticalAlignment="Top" Width="162"/>
-        <Button Content="Шаг" Click="StepButtonClicked" HorizontalAlignment="Left" Margin="25,418,0,0" VerticalAlignment="Top" Width="162"/>
-        <Button Content="Пуск" Click="StartButtonClicked"  HorizontalAlignment="Left" Margin="25,368,0,0" VerticalAlignment="Top" Width="162"/>
-        <Button Content="Стоп" Click="StopButtonClicked" HorizontalAlignment="Left" Margin="25,393,0,0" VerticalAlignment="Top" Width="162"/>
-        <Button Content="Конец работы" Click="FinishButtonClicked" HorizontalAlignment="Left" Margin="25,443,0,0" VerticalAlignment="Top" Width="162"/>
-        <Label Content="Настройки:" HorizontalAlignment="Left" Margin="25,23,0,0" VerticalAlignment="Top" Width="162"/>
-        <Label Content="XMAX (от 3 до 20)" HorizontalAlignment="Left" Margin="20,54,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,57,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
-        <Label Content="YMAX (от 1 до 4)" HorizontalAlignment="Left" Margin="20,82,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,85,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
-        <Label Content="ZMAX (от 1 до 2)" HorizontalAlignment="Left" Margin="20,110,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,113,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
-        <Label Content="TZAD (от 1 до 3000)" HorizontalAlignment="Left" Margin="20,138,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,141,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
-        <Label Content="Xтек =" HorizontalAlignment="Left" Margin="25,183,0,0" VerticalAlignment="Top" Width="49"/>
-        <Label Content="Yтек =" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="49"/>
-        <Label Content="Zтек =" HorizontalAlignment="Left" Margin="25,239,0,0" VerticalAlignment="Top" Width="49"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="79,183,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="79,211,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="79,239,0,0" VerticalAlignment="Top"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="20,177,0,0" Stroke="Black" VerticalAlignment="Top" Width="175"/>
+        <Frame Content="Слева" Background="AntiqueWhite" HorizontalAlignment="Right" Height="265" Margin="0,0,21.6,294.4" VerticalAlignment="Bottom" Width="520" Grid.RowSpan="2"/>
+        <Frame Content="Изометрия" Background="AntiqueWhite" HorizontalAlignment="Right" Height="265" Margin="0,0,21.6,10.4" VerticalAlignment="Bottom" Width="520" Grid.RowSpan="2"/>
+        <Frame Content="Сверху" Background="AntiqueWhite" HorizontalAlignment="Right" Height="265" Margin="0,0,564.6,10.4" VerticalAlignment="Bottom" Width="520" Grid.RowSpan="2"/>
+        <Frame Content="Спереди" Background="AntiqueWhite" HorizontalAlignment="Right" Height="265" Margin="0,0,564.6,294.4" VerticalAlignment="Bottom" Width="520" Grid.RowSpan="2"/>
+        <Frame Content="" Background="Lavender" HorizontalAlignment="Left" Height="265" Margin="10,10,0,0" VerticalAlignment="Top" Width="194" Grid.RowSpan="2"/>
+        <Frame Content="" Background="Lavender" HorizontalAlignment="Left" Height="265" Margin="10,294,0,0" VerticalAlignment="Top" Width="194" Grid.RowSpan="2"/>
+        <RadioButton Content="Автоматический режим" HorizontalAlignment="Left" Margin="25,309,0,0" VerticalAlignment="Top" Width="162" Grid.RowSpan="2"/>
+        <RadioButton Content="Ручной режим" HorizontalAlignment="Left" Margin="25,329,0,0" VerticalAlignment="Top" Width="162" Grid.RowSpan="2"/>
+        <Button Content="Настройка" Click="SettingsButtonClicked" HorizontalAlignment="Left" Margin="25,468,0,0" VerticalAlignment="Top" Width="162" Grid.RowSpan="2"/>
+        <Button Content="Шаг" Click="StepButtonClicked" HorizontalAlignment="Left" Margin="25,418,0,0" VerticalAlignment="Top" Width="162" Grid.RowSpan="2"/>
+        <Button Content="Пуск" Click="StartButtonClicked"  HorizontalAlignment="Left" Margin="25,368,0,0" VerticalAlignment="Top" Width="162" Grid.RowSpan="2"/>
+        <Button Content="Стоп" Click="StopButtonClicked" HorizontalAlignment="Left" Margin="25,393,0,0" VerticalAlignment="Top" Width="162" Grid.RowSpan="2"/>
+        <Button Content="Конец работы" Click="FinishButtonClicked" HorizontalAlignment="Left" Margin="25,443,0,0" VerticalAlignment="Top" Width="162" Grid.RowSpan="2"/>
+        <Label Content="Настройки:" HorizontalAlignment="Left" Margin="25,23,0,0" VerticalAlignment="Top" Width="162" Grid.RowSpan="2"/>
+        <Label Content="XMAX (от 3 до 20)" HorizontalAlignment="Left" Margin="20,54,0,0" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,57,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" Grid.RowSpan="2"/>
+        <Label Content="YMAX (от 1 до 4)" HorizontalAlignment="Left" Margin="20,82,0,0" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,85,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" Grid.RowSpan="2"/>
+        <Label Content="ZMAX (от 1 до 2)" HorizontalAlignment="Left" Margin="20,110,0,0" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,113,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" Grid.RowSpan="2"/>
+        <Label Content="TZAD (от 1 до 3000)" HorizontalAlignment="Left" Margin="20,138,0,0" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,141,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" Grid.RowSpan="2"/>
+        <Label Content="Xтек =" HorizontalAlignment="Left" Margin="25,183,0,0" VerticalAlignment="Top" Width="49" Grid.RowSpan="2"/>
+        <Label Content="Yтек =" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="49" Grid.RowSpan="2"/>
+        <Label Content="Zтек =" HorizontalAlignment="Left" Margin="25,239,0,0" VerticalAlignment="Top" Width="49" Grid.RowSpan="2"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="79,183,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="79,211,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="79,239,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="20,177,0,0" Stroke="Black" VerticalAlignment="Top" Width="175" Grid.RowSpan="2"/>
 
 
-        <Viewport3D Margin="774,299,24.6,8.4" x:Name="Isometry" RenderTransformOrigin="0.5,0.5">
+        <Viewport3D Margin="774,299,24.6,8.4" x:Name="Isometry" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
             <Viewport3D.Camera>
                 <PerspectiveCamera Position="-10,20,20" LookDirection="100,-100,-100"/>
             </Viewport3D.Camera>
@@ -49,26 +53,11 @@
                         <DirectionalLight Color="White" Direction="2.5, -1.75, -5"/>
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
-                <ModelVisual3D>
-                    <ModelVisual3D.Content>
-                        <GeometryModel3D>
-                            <GeometryModel3D.Geometry>
-                                <MeshGeometry3D Positions="0,0,0 1,0,0 0,1,0 1,1,0 
-                                                           0,0,1 1,0,1 0,1,1 1,1,1"
-                                      TriangleIndices="0,2,1 1,2,3 0,4,2 2,4,6 
-                                                       0,1,4 1,5,4 1,7,5 1,3,7
-                                                       4,5,6 7,6,5 2,6,3 3,6,7"/>
-                            </GeometryModel3D.Geometry>
-                            <GeometryModel3D.Material>
-                                <DiffuseMaterial Brush="Blue"/>
-                            </GeometryModel3D.Material>
-                        </GeometryModel3D>
-                    </ModelVisual3D.Content>
-                </ModelVisual3D>
+                
 
             </Viewport3D.Children>
         </Viewport3D>
-        <Viewport3D Margin="230,297,568.6,10.4" x:Name="Top" RenderTransformOrigin="0.5,0.5">
+        <Viewport3D Margin="230,297,568.6,10.4" x:Name="Top" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
             <Viewport3D.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -78,29 +67,18 @@
                 </TransformGroup>
             </Viewport3D.RenderTransform>
             <Viewport3D.Camera>
-                <PerspectiveCamera Position="2,10,40" LookDirection="3,-10,-40"></PerspectiveCamera>
+                <PerspectiveCamera Position="10,30,3" LookDirection="0,-45,-1"></PerspectiveCamera>
+               
             </Viewport3D.Camera>
             <ModelVisual3D>
                 <ModelVisual3D.Content>
                     <DirectionalLight Color="White" Direction="2.5, -1.75, -5"/>
                 </ModelVisual3D.Content>
             </ModelVisual3D>
-            <ModelVisual3D>
-                <ModelVisual3D.Content>
-                    <GeometryModel3D>
-                        <GeometryModel3D.Geometry>
-                            <MeshGeometry3D Positions="0,0,0 1,0,0 0,1,0 1,1,0 0,0,1 1,0,1 0,1,1 1,1,1"
-                                TriangleIndices="0,2,1 1,2,3 0,4,2 2,4,6                                                         0,1,4 1,5,4 1,7,5 1,3,7                                                        4,5,6 7,6,5 2,6,3 3,6,7"/>
-                        </GeometryModel3D.Geometry>
-                        <GeometryModel3D.Material>
-                            <DiffuseMaterial Brush="Blue"/>
-                        </GeometryModel3D.Material>
-                    </GeometryModel3D>
-                </ModelVisual3D.Content>
-            </ModelVisual3D>
+            
 
         </Viewport3D>
-        <Viewport3D Margin="231,11,567.6,296.4" x:Name="Front" RenderTransformOrigin="0.5,0.5">
+        <Viewport3D Margin="231,11,567.6,296.4" x:Name="Front" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
             <Viewport3D.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -110,29 +88,18 @@
                 </TransformGroup>
             </Viewport3D.RenderTransform>
             <Viewport3D.Camera>
-                <PerspectiveCamera Position="5,7,15" LookDirection="0,-1,-3.5"/>
+
+                <PerspectiveCamera Position="10,2,30" LookDirection="0,0,-1"/>
             </Viewport3D.Camera>
             <ModelVisual3D>
                 <ModelVisual3D.Content>
                     <DirectionalLight Color="White" Direction="2.5, -1.75, -5"/>
                 </ModelVisual3D.Content>
             </ModelVisual3D>
-            <ModelVisual3D>
-                <ModelVisual3D.Content>
-                    <GeometryModel3D>
-                        <GeometryModel3D.Geometry>
-                            <MeshGeometry3D Positions="0,0,0 1,0,0 0,1,0 1,1,0 0,0,1 1,0,1 0,1,1 1,1,1"
-                                TriangleIndices="0,2,1 1,2,3 0,4,2 2,4,6                                                         0,1,4 1,5,4 1,7,5 1,3,7                                                        4,5,6 7,6,5 2,6,3 3,6,7"/>
-                        </GeometryModel3D.Geometry>
-                        <GeometryModel3D.Material>
-                            <DiffuseMaterial Brush="Blue"/>
-                        </GeometryModel3D.Material>
-                    </GeometryModel3D>
-                </ModelVisual3D.Content>
-            </ModelVisual3D>
+            
 
         </Viewport3D>
-        <Viewport3D Margin="775,11,23.6,296.4" x:Name="Left" RenderTransformOrigin="0.5,0.5">
+        <Viewport3D Margin="775,11,23.6,296.4" x:Name="Left" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
             <Viewport3D.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -142,32 +109,12 @@
                 </TransformGroup>
             </Viewport3D.RenderTransform>
             <Viewport3D.Camera>
-                <PerspectiveCamera Position="5,7,15" LookDirection="0,-1,-3.5"/>
+                <PerspectiveCamera Position="-15,2,2" LookDirection="45,0,0"/>
             </Viewport3D.Camera>
             <ModelVisual3D>
                 <ModelVisual3D.Content>
                     <DirectionalLight Color="White" Direction="2.5, -1.75, -5"/>
                 </ModelVisual3D.Content>
-            </ModelVisual3D>
-            <ModelVisual3D>
-                <ModelVisual3D.Content>
-                    <GeometryModel3D>
-                        <GeometryModel3D.Geometry>
-                            <MeshGeometry3D Positions="0,0,0 1,0,0 0,1,0 1,1,0 0,0,1 1,0,1 0,1,1 1,1,1"
-                                TriangleIndices="0,2,1 1,2,3 0,4,2 2,4,6                                                         0,1,4 1,5,4 1,7,5 1,3,7                                                        4,5,6 7,6,5 2,6,3 3,6,7"/>
-                        </GeometryModel3D.Geometry>
-                        <GeometryModel3D.Material>
-                            <DiffuseMaterial Brush="Blue"/>
-                        </GeometryModel3D.Material>
-                    </GeometryModel3D>
-                </ModelVisual3D.Content>
-                <ModelVisual3D.Transform>
-                    <RotateTransform3D>
-                        <RotateTransform3D.Rotation>
-                            <AxisAngleRotation3D Axis="0 1 0" Angle="45"/>
-                        </RotateTransform3D.Rotation>
-                    </RotateTransform3D>
-                </ModelVisual3D.Transform>
             </ModelVisual3D>
 
         </Viewport3D>

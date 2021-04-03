@@ -50,6 +50,7 @@ namespace Visualizer
                     for (int k = 0; k < detailPoints[i][j].Length; k++)
                     {
                         detailPoints[i][j][k] = random.Next(1,2);
+                        if (i == 19 && j == 3 && k == 1) detailPoints[i][j][k] = 0;
                     }
                 }
             }
@@ -76,7 +77,7 @@ namespace Visualizer
                     {
                         if (detailPoints[i][j][k] != 0)
                         {
-                            DrawPoint(i, j, k);
+                            DrawPoint(i,  k,j);
                         }
                     }
                 }
