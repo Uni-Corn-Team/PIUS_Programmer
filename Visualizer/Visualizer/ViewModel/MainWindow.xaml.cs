@@ -38,7 +38,12 @@ namespace Visualizer
 
         public void SettingsButtonClicked(object sender, RoutedEventArgs e)
         {
-            int[][][] detailPoints;
+            RandomInit(out int[][][] detailPoints);
+            DrawDetail(detailPoints);
+        }
+
+        private void RandomInit(out int[][][] detailPoints)
+        {
             Random random = new Random();
             detailPoints = new int[20][][];
             for (int i = 0; i < detailPoints.Length; i++)
@@ -49,12 +54,11 @@ namespace Visualizer
                     detailPoints[i][j] = new int[2];
                     for (int k = 0; k < detailPoints[i][j].Length; k++)
                     {
-                        detailPoints[i][j][k] = random.Next(1,2);
+                        detailPoints[i][j][k] = random.Next(0, 2);
                         if (i == 19 && j == 3 && k == 1) detailPoints[i][j][k] = 0;
                     }
                 }
             }
-            DrawDetail(detailPoints);
         }
 
         public void StepButtonClicked(object sender, RoutedEventArgs e)
@@ -67,9 +71,31 @@ namespace Visualizer
 
         }
 
+        private void RemoveDetailPoints(Viewport3D vp)
+        {
+            List<Visual3D> toRemove = new List<Visual3D>();
+            foreach (var child in vp.Children)
+            {
+                if (((ModelVisual3D)child).Content.GetType() == typeof(GeometryModel3D))
+                {
+                    toRemove.Add(child);
+                }
+            }
+            foreach (var child in toRemove)
+            {
+                vp.Children.Remove(child);
+            }
+            toRemove.Clear();
+        }
+
         public void DrawDetail(int[][][] detailPoints)
         {
-            for(int i = 0; i < detailPoints.Length; i++)
+            RemoveDetailPoints(Isometry);
+            RemoveDetailPoints(Top);
+            RemoveDetailPoints(Left);
+            RemoveDetailPoints(Front);
+
+            for (int i = 0; i < detailPoints.Length; i++)
             {
                 for(int j = 0; j < detailPoints[i].Length; j++)
                 {
@@ -115,7 +141,7 @@ namespace Visualizer
                     {
                         Brush = new SolidColorBrush()
                         {
-                            Color = Color.FromRgb(1, 106, 254)
+                            Color = Color.FromRgb(127, 255, 212)
                         }
                     }
                 }
