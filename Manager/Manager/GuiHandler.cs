@@ -26,7 +26,7 @@ namespace Manager
             {
                 
                 State.VisualizeFunc.Invoke();
-                Thread.Sleep(1000);
+                Thread.Sleep(State.Settings.TZad);
             }
                         
         }
