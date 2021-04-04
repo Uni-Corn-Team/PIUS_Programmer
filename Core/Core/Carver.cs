@@ -7,6 +7,11 @@ namespace Core
 {
     public class Carver
     {
+        public Carver()
+        {
+            detail = new Detail(0,0,0);
+        }
+
         //external bools
         public bool IsWorking { get; private set; }
         public bool IsAutomatic { get; private set; }
@@ -183,9 +188,17 @@ namespace Core
         {
             IsWorking = false;
         }
+        public void SetAutomatic()
+        {
+            IsAutomatic = true;
+        }
+        public void SetManual()
+        {
+            IsAutomatic = false;
+        }
         public void DoAutomaticalySteps()
         {
-            while (!IsFinishedFigure)
+            while (!IsFinishedFigure && IsAutomatic)
             {
                 DoStep();
                 Thread.Sleep(delay); //TODO: change to smth else

@@ -114,5 +114,11 @@
   <ItemGroup>
     <Folder Include="Model\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Manager\Manager\Manager.csproj">
+      <Project>{2a6ec9c5-319a-4648-82bb-df3d37192ee7}</Project>
+      <Name>Manager</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

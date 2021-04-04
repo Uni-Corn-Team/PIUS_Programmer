@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Manager;
+
 
 namespace Visualizer
 {
@@ -24,22 +27,42 @@ namespace Visualizer
         public MainWindow()
         {
             InitializeComponent();
+            GuiHandler.Init(() => this.Dispatcher.Invoke(() => { DrawDetail(State.Detail); UpdateKnifePosition(); }));
+            //TimerCallback timerCB = new TimerCallback((object state) => DrawDetail(State.Detail));
+            //Timer t = new Timer(timerCB, null, 0, 1000);
+            
+
+        }
+
+        public void AutomaticRadioButtonClicked(object sender, RoutedEventArgs e)
+        {
+            GuiHandler.SetAutoWork();
+        }
+        public void ManualRadioButtonClicked(object sender, RoutedEventArgs e)
+        {
+            GuiHandler.SetManualWork();
         }
 
         public void StartButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            GuiHandler.Start();
         }
 
         public void StopButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            GuiHandler.Stop();
         }
 
         public void SettingsButtonClicked(object sender, RoutedEventArgs e)
         {
-            RandomInit(out int[][][] detailPoints);
-            DrawDetail(detailPoints);
+            //RandomInit(out int[][][] detailPoints);
+            GuiHandler.SetSettings(new Settings(
+                (WorkMode)Convert.ToInt32(AutomaticMode.IsChecked ?? false),
+                Convert.ToInt32(XMax.Text), Convert.
+                ToInt32(YMax.Text),
+                Convert.ToInt32(ZMax.Text),
+                Convert.ToInt32(TZad.Text)));
+            DrawDetail(State.Detail);
         }
 
         private void RandomInit(out int[][][] detailPoints)
@@ -63,12 +86,18 @@ namespace Visualizer
 
         public void StepButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            GuiHandler.DoStep(this);
         }
 
         public void FinishButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            GuiHandler.End();
+            RemoveDetailPoints(Isometry);
+            RemoveDetailPoints(Top);
+            RemoveDetailPoints(Left);
+            RemoveDetailPoints(Front);
+            XMax.Text = ""; YMax.Text = ""; ZMax.Text = ""; TZad.Text = "";
+            
         }
 
         private void RemoveDetailPoints(Viewport3D vp)
@@ -101,8 +130,10 @@ namespace Visualizer
                 {
                     for (int k = 0; k < detailPoints[i][j].Length; k++)
                     {
+                        
                         if (detailPoints[i][j][k] != 0)
                         {
+
                             DrawPoint(i,  k,j);
                         }
                     }
@@ -147,6 +178,13 @@ namespace Visualizer
                 }
             };
             return mv;
+        }
+
+        public void UpdateKnifePosition()
+        {
+            currentX.Content = State.CoordinateX.ToString();
+            currentY.Content = State.CoordinateY.ToString();
+            currentZ.Content = State.CoordinateZ.ToString();
         }
     }
 }

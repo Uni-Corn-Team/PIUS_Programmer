@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    enum WorkMode { Auto, Manual };
-    enum WorkState { Run, Stop};
+    public enum WorkMode { Manual, Auto };
+    public enum WorkState { Run, Stop};
 
-    class Settings
+    public class Settings
     {
         public WorkMode WorkMode { get; set; }
         public int XMax { get; set; }
