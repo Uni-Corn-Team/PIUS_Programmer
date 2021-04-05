@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Manager.tmpClasses
 {
-    public class Detail
+    public class Point3d
     {
-        public int[][][] state;
-        public Detail(int x, int y, int z)
+        public int x, y, z;
+        public Point3d(int x, int y, int z)
         {
+
         }
     }
 }

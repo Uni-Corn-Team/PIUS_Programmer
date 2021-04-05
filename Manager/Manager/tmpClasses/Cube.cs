@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Manager.tmpClasses
 {
-    public class Detail
+    public class Cube
     {
-        public int[][][] state;
-        public Detail(int x, int y, int z)
+        public int xSize, ySize, zSize;
+        public Cube(int xSize, int ySize, int zSize)
         {
+
         }
     }
 }

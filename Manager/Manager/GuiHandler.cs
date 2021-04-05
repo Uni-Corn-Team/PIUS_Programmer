@@ -7,29 +7,40 @@ using System.Threading;
 
 namespace Manager
 {
-    class GuiHandler
-    {        
+    public class GuiHandler
+    {
 
-        public void Init(Action<int[][][]> visualizeFunc)
+        public static void Init(Action visualizeFunc)
         {
             State.Carver = new Carver();
             State.VisualizeFunc = visualizeFunc;
 
-            TimerCallback timerCB = new TimerCallback(Visualizer);
-            Timer t = new Timer(timerCB, null, 0, 1000);
+            //TimerCallback timerCB = new TimerCallback(Visualizer);
+            //Timer t = new Timer(timerCB, null, 0, 1000);
+
         }
 
-        private void Visualizer(object state)
+        private static void Visualizer()
         {
-            State.VisualizeFunc.Invoke(State.Carver.GetDetail().state);
-        }
-
-        public void Start() 
-        {
-            if(State.Settings.WorkMode == WorkMode.Auto)
+            while (true)
             {
-                State.Carver.IsWorking = true;
-                State.Carver.DoAutomaticalySteps();
+
+                State.VisualizeFunc.Invoke();
+                Thread.Sleep(State.Settings?.TZad ?? 1000);
+            }
+
+        }
+
+        public static bool isFinished => State.Carver.IsFinishedFigure;
+        public static bool isChanged => State.Carver.IsChangedState;
+
+        public static void Start()
+        {
+            if (State.Settings.WorkMode == WorkMode.Auto)
+            {
+                State.Carver.Start();
+                var thread = new Thread(State.Carver.DoAutomaticalySteps) { IsBackground = true };
+                thread.Start();
                 return;
             }
 
@@ -38,31 +49,51 @@ namespace Manager
                 State.Carver.DoStep();
                 return;
             }
+
         }
 
-        public void Stop()
+        public static void DoStep(object state)
         {
-            State.Carver.IsWorking = false;
+            State.Carver.DoStep();
+            State.VisualizeFunc.Invoke();
+
         }
 
-        public void End() 
+        public static void Stop()
         {
-            //What i should do there???
+            State.Carver.Stop();
         }
 
-        public void SetAutoWork() 
+        public static void End()
         {
-            State.Carver.IsAutomatic = true;       
+            State.Carver = new Carver();
+            State.Settings = null;
         }
 
-        public void SetManualWork() {
-            State.Carver.IsAutomatic = false;
-        }
-
-        public void SetSettings(Settings settings) 
+        public static void SetAutoWork()
         {
-            State.Carver.PutInstruction(settings.WorkMode == WorkMode.Auto, settings.XMax, settings.YMax, settings.ZMax, settings.TZad);
+            State.Carver.SetAutomatic();
+            if (State.Settings != null)
+            {
+                State.Settings.WorkMode = WorkMode.Auto;
+            }
+        }
 
+        public static void SetManualWork()
+        {
+            State.Carver.SetManual();
+            if (State.Settings != null)
+            {
+                State.Settings.WorkMode = WorkMode.Manual;
+            }
+        }
+
+        public static void SetSettings(Settings settings)
+        {
+            State.Settings = new Settings(settings);
+            State.Carver.PutInstruction(settings.WorkMode == WorkMode.Auto, new Point3d(0, 0, 0), new Cube(settings.XMax, settings.YMax, settings.ZMax), new KnifeStroke(1, 1, 1), settings.TZad, new Detail(20, 4, 2));
+            var thread = new Thread(Visualizer) { IsBackground = true };
+            thread.Start();
         }
 
 

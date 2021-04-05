@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Manager.tmpClasses
 {
-    public class Detail
+    public class KnifeStroke
     {
-        public int[][][] state;
-        public Detail(int x, int y, int z)
+        public int x, y, z;
+        public KnifeStroke(int xSize, int ySize, int zSize)
         {
         }
     }
