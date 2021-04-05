@@ -1,21 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Manager;
-
 
 namespace Visualizer
 {
@@ -44,25 +33,20 @@ namespace Visualizer
 
         public void StartButtonClicked(object sender, RoutedEventArgs e)
         {
-            if (Int32.TryParse(XMax.Text, out int xmax) && (xmax <= 20) && (xmax >= 3)
-                && Int32.TryParse(YMax.Text, out int ymax) && (ymax <= 4) && (ymax >= 1)
-                && Int32.TryParse(ZMax.Text, out int zmax) && (zmax <= 2) && (zmax >= 1)
-                && Int32.TryParse(TZad.Text, out int tzad) && (tzad <= 3000) && (tzad >= 100))
+            if (ManualMode.IsChecked == true)
             {
-                if (ManualMode.IsChecked == true)
-                {
-                    GuiHandler.SetManualWork();
-                }
-                else
-                {
-                    GuiHandler.SetAutoWork();
-                }
-
-                BlockAll();
-                StopButton.IsEnabled = true;
-
-                GuiHandler.Start();
+                GuiHandler.SetManualWork();
             }
+            else
+            {
+                GuiHandler.SetAutoWork();
+            }
+
+            BlockAll();
+            StopButton.IsEnabled = true;
+            EndButton.IsEnabled = true;
+
+            GuiHandler.Start();
         }
 
         public void StopButtonClicked(object sender, RoutedEventArgs e)
@@ -71,7 +55,6 @@ namespace Visualizer
 
             AutomaticMode.IsEnabled = true;
             ManualMode.IsEnabled = true;
-
 
             if (AutomaticMode.IsChecked ?? false)
             {
@@ -100,22 +83,28 @@ namespace Visualizer
 
         public void SaveSettingsButtonClicked(object sender, RoutedEventArgs e)
         {
-            GuiHandler.SetSettings(new Settings(
+            if (Int32.TryParse(XMax.Text, out int xmax) && (xmax <= 20) && (xmax >= 3)
+                   && Int32.TryParse(YMax.Text, out int ymax) && (ymax <= 4) && (ymax >= 1)
+                   && Int32.TryParse(ZMax.Text, out int zmax) && (zmax <= 2) && (zmax >= 1)
+                   && Int32.TryParse(TZad.Text, out int tzad) && (tzad <= 3000) && (tzad >= 100))
+            {
+                GuiHandler.SetSettings(new Settings(
                 (WorkMode)Convert.ToInt32(AutomaticMode.IsChecked ?? false),
                 Convert.ToInt32(XMax.Text), Convert.
                 ToInt32(YMax.Text),
                 Convert.ToInt32(ZMax.Text),
                 Convert.ToInt32(TZad.Text)));
-            DrawDetail(State.Detail);
+                DrawDetail(State.Detail);
 
-            BlockAll();
+                BlockAll();
 
-            SettingsButton.IsEnabled = true;
-            if (AutomaticMode.IsChecked ?? false)
-            {
-                StartButton.IsEnabled = true;
+                SettingsButton.IsEnabled = true;
+                if (AutomaticMode.IsChecked ?? false)
+                {
+                    StartButton.IsEnabled = true;
+                }
+                StepButton.IsEnabled = true;
             }
-            StepButton.IsEnabled = true;
         }
 
         private void RandomInit(out int[][][] detailPoints)
@@ -139,21 +128,15 @@ namespace Visualizer
 
         public void StepButtonClicked(object sender, RoutedEventArgs e)
         {
-            if (Int32.TryParse(XMax.Text, out int xmax) && (xmax <= 20) && (xmax >= 3)
-                   && Int32.TryParse(YMax.Text, out int ymax) && (ymax <= 4) && (ymax >= 1)
-                   && Int32.TryParse(ZMax.Text, out int zmax) && (zmax <= 2) && (zmax >= 1)
-                   && Int32.TryParse(TZad.Text, out int tzad) && (tzad <= 3000) && (tzad >= 100))
+            BlockAll();
+            StepButton.IsEnabled = true;
+            if (AutomaticMode.IsChecked ?? false)
             {
-                BlockAll();
-                StepButton.IsEnabled = true;
-                if (AutomaticMode.IsChecked ?? false)
-                {
-                    StartButton.IsEnabled = true;
-                }
-                EndButton.IsEnabled = true;
-
-                GuiHandler.DoStep(this);
+                StartButton.IsEnabled = true;
             }
+            EndButton.IsEnabled = true;
+
+            GuiHandler.DoStep(this);
         }
 
         public void FinishButtonClicked(object sender, RoutedEventArgs e)
@@ -210,18 +193,11 @@ namespace Visualizer
             
             EndButton.IsEnabled = true;
 
-            if ((AutomaticMode.IsChecked ?? false) && !StartButton.IsEnabled)
+            if (isFinished)
             {
-                StopButton.IsEnabled = !isFinished;
-            }
-
-            if (AutomaticMode.IsChecked ?? false)
-            {
-                StartButton.IsEnabled = true;
-            }
-            else
-            {
-                StepButton.IsEnabled = !isFinished;
+                StopButton.IsEnabled = false;
+                StepButton.IsEnabled = false;
+                StartButton.IsEnabled = false;
             }
         }
 
