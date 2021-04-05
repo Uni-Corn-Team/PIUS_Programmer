@@ -54,7 +54,7 @@ namespace Core
         }
         private Point3d AdaptCoordinates(int x, int y, int z)
         {
-            return new Point3d(x, detail.state[x].Length - z, detail.state[x][z].Length - y);
+            return new Point3d(x, detail.state[x].Length - y, detail.state[x][y].Length - z);
         }
         private void Cut(KnifeStroke currentKnife)
         {
@@ -123,7 +123,7 @@ namespace Core
                 //Move carver blade to next position
                 if (isPlaneEnded)
                 {
-                    if (currentPosition.y  >= (startPosition.y + figureToCarve.ySize))
+                    if (currentPosition.y + currentKnife.y >= (startPosition.y + figureToCarve.ySize))
                     {
                         IsFinishedFigure = true;
                     }

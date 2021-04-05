@@ -26,10 +26,13 @@ namespace Manager
             {
                 
                 State.VisualizeFunc.Invoke();
-                Thread.Sleep(State.Settings.TZad);
+                Thread.Sleep(State.Settings?.TZad??1000);
             }
                         
         }
+
+        public static bool isFinished => State.Carver.IsFinishedFigure;
+        public static bool isChanged => State.Carver.IsChangedState;
 
         public static void Start() 
         {
@@ -87,7 +90,7 @@ namespace Manager
         public static void SetSettings(Settings settings) 
         {
             State.Settings = new Settings(settings);
-            State.Carver.PutInstruction(settings.WorkMode == WorkMode.Auto, new Point3d(0,0,0), new Cube(settings.XMax, settings.YMax, settings.ZMax), new KnifeStroke(1,1,1), settings.TZad, new Detail(10,5,8));
+            State.Carver.PutInstruction(settings.WorkMode == WorkMode.Auto, new Point3d(0,0,0), new Cube(settings.XMax, settings.YMax, settings.ZMax), new KnifeStroke(1,1,1), settings.TZad, new Detail(20,4,2));
             var thread = new Thread(Visualizer) { IsBackground = true };
             thread.Start();
         }

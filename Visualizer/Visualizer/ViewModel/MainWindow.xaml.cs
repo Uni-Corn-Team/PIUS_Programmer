@@ -24,38 +24,82 @@ namespace Visualizer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static bool isFinished;
         public MainWindow()
         {
             InitializeComponent();
-            GuiHandler.Init(() => this.Dispatcher.Invoke(() => { DrawDetail(State.Detail); UpdateKnifePosition(); }));
-            //TimerCallback timerCB = new TimerCallback((object state) => DrawDetail(State.Detail));
-            //Timer t = new Timer(timerCB, null, 0, 1000);
-            
+            GuiHandler.Init(() => this.Dispatcher.Invoke(() =>
+            {
+                if (GuiHandler.isChanged)
+                {
+                    DrawDetail(State.Detail);
+                    UpdateKnifePosition();
+                }
+                isFinished = GuiHandler.isFinished;
+            }));
 
-        }
-
-        public void AutomaticRadioButtonClicked(object sender, RoutedEventArgs e)
-        {
-            GuiHandler.SetAutoWork();
-        }
-        public void ManualRadioButtonClicked(object sender, RoutedEventArgs e)
-        {
-            GuiHandler.SetManualWork();
+            BlockAll();
+            SettingsButton.IsEnabled = true;
         }
 
         public void StartButtonClicked(object sender, RoutedEventArgs e)
         {
-            GuiHandler.Start();
+            if (Int32.TryParse(XMax.Text, out int xmax) && (xmax <= 20) && (xmax >= 3)
+                && Int32.TryParse(YMax.Text, out int ymax) && (ymax <= 4) && (ymax >= 1)
+                && Int32.TryParse(ZMax.Text, out int zmax) && (zmax <= 2) && (zmax >= 1)
+                && Int32.TryParse(TZad.Text, out int tzad) && (tzad <= 3000) && (tzad >= 100))
+            {
+                if (ManualMode.IsChecked == true)
+                {
+                    GuiHandler.SetManualWork();
+                }
+                else
+                {
+                    GuiHandler.SetAutoWork();
+                }
+
+                BlockAll();
+                StopButton.IsEnabled = true;
+
+                GuiHandler.Start();
+            }
         }
 
         public void StopButtonClicked(object sender, RoutedEventArgs e)
         {
+            BlockAll();
+
+            AutomaticMode.IsEnabled = true;
+            ManualMode.IsEnabled = true;
+
+
+            if (AutomaticMode.IsChecked ?? false)
+            {
+                StartButton.IsEnabled = true;
+            }
+
+            StepButton.IsEnabled = true;
+            EndButton.IsEnabled = true;
+
             GuiHandler.Stop();
         }
 
         public void SettingsButtonClicked(object sender, RoutedEventArgs e)
         {
-            //RandomInit(out int[][][] detailPoints);
+            BlockAll();
+            XMax.IsEnabled = true;
+            YMax.IsEnabled = true;
+            ZMax.IsEnabled = true;
+            TZad.IsEnabled = true;
+
+            AutomaticMode.IsEnabled = true;
+            ManualMode.IsEnabled = true;
+
+            SaveSettingsButton.IsEnabled = true;
+        }
+
+        public void SaveSettingsButtonClicked(object sender, RoutedEventArgs e)
+        {
             GuiHandler.SetSettings(new Settings(
                 (WorkMode)Convert.ToInt32(AutomaticMode.IsChecked ?? false),
                 Convert.ToInt32(XMax.Text), Convert.
@@ -63,6 +107,15 @@ namespace Visualizer
                 Convert.ToInt32(ZMax.Text),
                 Convert.ToInt32(TZad.Text)));
             DrawDetail(State.Detail);
+
+            BlockAll();
+
+            SettingsButton.IsEnabled = true;
+            if (AutomaticMode.IsChecked ?? false)
+            {
+                StartButton.IsEnabled = true;
+            }
+            StepButton.IsEnabled = true;
         }
 
         private void RandomInit(out int[][][] detailPoints)
@@ -86,18 +139,35 @@ namespace Visualizer
 
         public void StepButtonClicked(object sender, RoutedEventArgs e)
         {
-            GuiHandler.DoStep(this);
+            if (Int32.TryParse(XMax.Text, out int xmax) && (xmax <= 20) && (xmax >= 3)
+                   && Int32.TryParse(YMax.Text, out int ymax) && (ymax <= 4) && (ymax >= 1)
+                   && Int32.TryParse(ZMax.Text, out int zmax) && (zmax <= 2) && (zmax >= 1)
+                   && Int32.TryParse(TZad.Text, out int tzad) && (tzad <= 3000) && (tzad >= 100))
+            {
+                BlockAll();
+                StepButton.IsEnabled = true;
+                if (AutomaticMode.IsChecked ?? false)
+                {
+                    StartButton.IsEnabled = true;
+                }
+                EndButton.IsEnabled = true;
+
+                GuiHandler.DoStep(this);
+            }
         }
 
         public void FinishButtonClicked(object sender, RoutedEventArgs e)
         {
+            BlockAll();
+            SettingsButton.IsEnabled = true;
+
             GuiHandler.End();
             RemoveDetailPoints(Isometry);
             RemoveDetailPoints(Top);
             RemoveDetailPoints(Left);
             RemoveDetailPoints(Front);
-            XMax.Text = ""; YMax.Text = ""; ZMax.Text = ""; TZad.Text = "";
-            
+            XMax.Text = "0"; YMax.Text = "0"; ZMax.Text = "0"; TZad.Text = "100";
+            currentX.Content = "0"; currentY.Content = "0"; currentZ.Content = "0";
         }
 
         private void RemoveDetailPoints(Viewport3D vp)
@@ -126,18 +196,32 @@ namespace Visualizer
 
             for (int i = 0; i < detailPoints.Length; i++)
             {
-                for(int j = 0; j < detailPoints[i].Length; j++)
+                for (int j = 0; j < detailPoints[i].Length; j++)
                 {
                     for (int k = 0; k < detailPoints[i][j].Length; k++)
                     {
-                        
                         if (detailPoints[i][j][k] != 0)
                         {
-
-                            DrawPoint(i,  k,j);
+                            DrawPoint(i, k, j);
                         }
                     }
                 }
+            }
+            
+            EndButton.IsEnabled = true;
+
+            if ((AutomaticMode.IsChecked ?? false) && !StartButton.IsEnabled)
+            {
+                StopButton.IsEnabled = !isFinished;
+            }
+
+            if (AutomaticMode.IsChecked ?? false)
+            {
+                StartButton.IsEnabled = true;
+            }
+            else
+            {
+                StepButton.IsEnabled = !isFinished;
             }
         }
 
@@ -185,6 +269,25 @@ namespace Visualizer
             currentX.Content = State.CoordinateX.ToString();
             currentY.Content = State.CoordinateY.ToString();
             currentZ.Content = State.CoordinateZ.ToString();
+        }
+
+        private void BlockAll()
+        {
+            XMax.IsEnabled = false;
+            YMax.IsEnabled = false;
+            ZMax.IsEnabled = false;
+            TZad.IsEnabled = false;
+
+            AutomaticMode.IsEnabled = false;
+            ManualMode.IsEnabled = false;
+
+            SettingsButton.IsEnabled = false;
+            SaveSettingsButton.IsEnabled = false;
+
+            StartButton.IsEnabled = false;
+            StepButton.IsEnabled = false;
+            StopButton.IsEnabled = false;
+            EndButton.IsEnabled = false;
         }
     }
 }
