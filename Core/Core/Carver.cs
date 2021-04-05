@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,52 +52,26 @@ namespace Core
             IsChangedState = false;
             return detail;
         }
+        private Point3d AdaptCoordinates(int x, int y, int z)
+        {
+            return new Point3d(x, detail.state[x].Length - z, detail.state[x][z].Length - y);
+        }
         private void Cut(KnifeStroke currentKnife)
         {
-
+ 
             int dX = Math.Abs(currentKnife.x) <= maxKnife.x ? currentKnife.x : maxKnife.x * Math.Sign(currentKnife.x);
             int dY = Math.Abs(currentKnife.y) <= maxKnife.y ? currentKnife.y : maxKnife.y * Math.Sign(currentKnife.y);
             int dZ = Math.Abs(currentKnife.z) <= maxKnife.z ? currentKnife.z : maxKnife.z * Math.Sign(currentKnife.z);
 
-            int startX, startY, startZ, endX, endY, endZ;
-            if (dX > 0)
-            {
-                startX = currentPosition.x;
-                endX = currentPosition.x + dX;
-            }
-            else
-            {
-                startX = currentPosition.x + dX;
-                endX = currentPosition.x;
-            }
+            Point3d end;
+            Point3d start = AdaptCoordinates(currentPosition.x, currentPosition.y, currentPosition.z);
+                end = AdaptCoordinates(currentPosition.x + dX, currentPosition.y + dY, currentPosition.z + dZ);
 
-            if (dY > 0)
+            for (int i = Math.Min(start.x, end.x); i < Math.Max(start.x, end.x); i++)
             {
-                startY = currentPosition.y;
-                endY = currentPosition.y + dY;
-            }
-            else
-            {
-                startY = currentPosition.y + dY;
-                endY = currentPosition.y;
-            }
-
-            if (dZ > 0)
-            {
-                startZ = currentPosition.z;
-                endZ = currentPosition.z + dZ;
-            }
-            else
-            {
-                startZ = currentPosition.z + dZ;
-                endZ = currentPosition.z;
-            }
-
-            for (int i = startX; i < endX; i++)
-            {
-                for (int j = startY; j < endY; j++)
+                for (int j = Math.Min(start.y, end.y); j < Math.Max(start.y, end.y); j++)
                 {
-                    for (int k = startZ; k < endZ; k++)
+                    for (int k = Math.Min(start.z, end.z); k < Math.Max(start.z, end.z); k++)
                     {
                         detail.state[i][j][k]--;
                     }
@@ -149,7 +123,7 @@ namespace Core
                 //Move carver blade to next position
                 if (isPlaneEnded)
                 {
-                    if ((currentPosition.y + currentKnife.y) >= (startPosition.y + figureToCarve.ySize))
+                    if (currentPosition.y  >= (startPosition.y + figureToCarve.ySize))
                     {
                         IsFinishedFigure = true;
                     }
